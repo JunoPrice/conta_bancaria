@@ -2,10 +2,25 @@ import readlinesync = require("readline-sync");
 import { colors } from './src/util/Colors';
 import { Conta } from "./src/model/Conta";
 import { ContaCorrente } from "./src/model/ContaCorrente";
+import { ContaPoupanca } from "./src/model/ContaPoupanca";
 
 export function main() {
 
-    let opcao: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let titular: string;
+    const tipoContas = ['Conta Corrente', 'Conta Poupança'];
+
+    //contas que o professor mandou no chat
+    /** //Novas Instâncias da Classe ContaCorrente (Objetos)
+    contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 1234, 1, 'Amanda Magro', 1000000.00, 100000.00));
+    contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 4578, 1, 'João da Silva', 1000.00, 100.00));
+ 
+    // Novas Instâncias da Classe ContaPoupança (Objetos)
+    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5789, 2, "Geana Almeida", 10000, 10));
+    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5698, 2, "Jean Lima", 15000, 15)); */
+
+    // Criando um Objeto da Classe ContaController
+    const contas: new ContaController();
 
     //Cria novas instancias (objetos) da classe CONTA AQUI SAO AS CONTAS CADASTRADAS PREVIAMENTE
     const c1 = new Conta(1, 123, 1, "Jonas", 100000)
@@ -79,6 +94,40 @@ export function main() {
                 console.log(colors.fg.whitestrong, 
                     "\n\nCriar Conta\n\n", colors.reset);
                 
+                    console.log("Digite o Número da Agência: ");//A mensagem vem com o console e readline vem vazio
+                    agencia = readlinesync.questionInt(''); //Esse macete é pq o readline tem problema com acento
+
+                    console.log("Digite o Nome do Titular: ");//A mensagem vem com o console e readline vem vazio
+                    agencia = readlinesync.question(''); //Esse macete é pq o readline tem problema com acento
+
+                    console.log("Digite o Número da Agência: ");//A mensagem vem com o console e readline vem vazio
+                    agencia = readlinesync.keyInSelect(''); //Esse macete é pq o readline tem problema com acento
+
+                    console.log("escolha o Tipo da Conta: ");//A mensagem vem com o console e readline vem vazio
+                    tipo = readlinesync.keyInSelect(tipoContas); //Esse macete é pq o readline tem problema com acento
+
+                    console.log("Digite o Saudo da Conta: ");//A mensagem vem com o console e readline vem vazio
+                    saldo = readlinesync.questionFloat(''); //Esse macete é pq o readline tem problema com acento
+
+                    limite = readlinesync.questionFloat('');
+
+                    switch(tipo){
+                        case 1:
+                            console.log("Digite o Limite da Conta: ");
+                            limite = readlinesync.questionFloat('');
+                            contas.cadastrar(new ContaCorrente(0, agencia, tipo, titular, saldo, limite))
+
+                        break;
+                        case 2:
+                            console.log("Digite o Dia do Aniversário da Poupanca: ");
+                            aniversario = readlinesync.questionInt('');
+                            contas.cadastrar(new ContaPoupanca(0, agencia, tipo, titular, saldo)
+                      
+                        break;
+
+                    }
+
+
                 keyPress()
                 break;
             case 2:
@@ -90,6 +139,11 @@ export function main() {
             case 3:
                 console.log(colors.fg.whitestrong, 
                     "\n\nConsultar dados da Conta - por número\n\n", colors.reset);
+
+                    console.log("Digite o número da conta:")
+                    numero = readlinesync.questionInt('');
+
+                    contas.procurarPorNumero(numero);
 
                 keyPress()
                 break;
